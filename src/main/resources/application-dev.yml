@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/parking_db
-    username: postgres
-    password: your_password
+    url: jdbc:postgresql://localhost:5433/parking_db
+    username: adrian
+    password: admin
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -13,3 +13,4 @@ spring:
         format_sql: true
   flyway:
     enabled: true
+    baseline-on-migrate: true
