@@ -1,10 +1,10 @@
-package org.parkingticketservice.parkingticketserivce.service;
+package org.parkingticketservice.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.parkingticketservice.parkingticketserivce.dto.SuccessfulResponse;
-import org.parkingticketservice.parkingticketserivce.entity.ParkingRecord;
-import org.parkingticketservice.parkingticketserivce.repository.ParkingRepository;
+import org.parkingticketservice.dto.SuccessfulResponse;
+import org.parkingticketservice.entity.ParkingRecord;
+import org.parkingticketservice.repository.ParkingRepository;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -28,6 +28,5 @@ public class ParkingService {
         } else {
             return new SuccessfulResponse(null, "Number does not exist!");
         }
-
     }
 }

@@ -1,7 +1,7 @@
-package org.parkingticketservice.parkingticketserivce.exception;
+package org.parkingticketservice.exception;
 
 import jakarta.validation.ConstraintViolationException;
-import org.parkingticketservice.parkingticketserivce.dto.ParkingErrorResponse;
+import org.parkingticketservice.dto.ParkingErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

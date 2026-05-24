@@ -1,6 +1,6 @@
-package org.parkingticketservice.parkingticketserivce.repository;
+package org.parkingticketservice.repository;
 
-import org.parkingticketservice.parkingticketserivce.entity.ParkingRecord;
+import org.parkingticketservice.entity.ParkingRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

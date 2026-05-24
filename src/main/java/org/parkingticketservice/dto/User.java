@@ -1,4 +1,4 @@
-package org.parkingticketservice.parkingticketserivce.dto;
+package org.parkingticketservice.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

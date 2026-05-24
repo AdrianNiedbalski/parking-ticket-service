@@ -1,4 +1,4 @@
-package org.parkingticketservice.parkingticketserivce.entity;
+package org.parkingticketservice.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

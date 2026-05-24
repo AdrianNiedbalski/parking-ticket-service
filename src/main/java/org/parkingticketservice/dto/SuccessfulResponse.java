@@ -1,4 +1,4 @@
-package org.parkingticketservice.parkingticketserivce.dto;
+package org.parkingticketservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

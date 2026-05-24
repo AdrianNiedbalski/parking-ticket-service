@@ -1,4 +1,4 @@
-package org.parkingticketservice.parkingticketserivce.dto;
+package org.parkingticketservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
