@@ -5,7 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.parkingticketservice.dto.SuccessfulResponse;
 import org.parkingticketservice.entity.ParkingRecord;
 import org.parkingticketservice.repository.ParkingRepository;
+import org.parkingticketservice.utils.TimeUtils;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Service
@@ -17,8 +21,13 @@ public class ParkingService {
         ParkingRecord record = new ParkingRecord();
         record.setPlateNumber(number);
 
-        parkingRepository.save(record);
-        return new SuccessfulResponse(null, "Number added!");
+        ParkingRecord savedRecord = parkingRepository.save(record);
+        Instant validUntil = TimeUtils.calculateValidUntil(savedRecord.getCreatedAt());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(java.time.ZoneId.systemDefault());
+        String formatted = formatter.format(validUntil);
+
+        return new SuccessfulResponse(formatted, "Number added!");
     }
 
     public SuccessfulResponse checkNumber(String number) {
@@ -29,4 +38,6 @@ public class ParkingService {
             return new SuccessfulResponse(null, "Number does not exist!");
         }
     }
+
+
 }

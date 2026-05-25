@@ -8,6 +8,6 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 public class SuccessfulResponse {
-    private Instant validUntil;
+    private String validUntil;
     private String status;
 }
