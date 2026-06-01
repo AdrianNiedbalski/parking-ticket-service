@@ -1,11 +1,13 @@
 package org.parkingticketservice.exception;
 
 import jakarta.validation.ConstraintViolationException;
+import org.parkingticketservice.dto.NumberAlreadyExistResponse;
 import org.parkingticketservice.dto.ParkingErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 import java.util.Map;
 
@@ -24,10 +26,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ParkingErrorResponse> handleIntegrityViolationExceptions(DataIntegrityViolationException ex) {
+    public ResponseEntity<NumberAlreadyExistResponse> handleIntegrityViolationExceptions(DataIntegrityViolationException ex) {
+        NumberAlreadyExistResponse numberAlreadyExistResponse = new NumberAlreadyExistResponse();
+
+        numberAlreadyExistResponse.setStatus("error");
+        numberAlreadyExistResponse.getErrors().put("database", "Plate number already exists or violates database constraints.");
+        return ResponseEntity.badRequest().body(numberAlreadyExistResponse);
+    }
+    /*
+    @ExceptionHandler(DailyLimitException.class)
+    public ResponseEntity<ParkingErrorResponse> handleDailyLimit(DailyLimitException ex) {
         ParkingErrorResponse errorResponse = new ParkingErrorResponse();
         errorResponse.setStatus("error");
-        errorResponse.getErrors().put("database", "Plate number already exists or violates database constraints.");
-        return ResponseEntity.badRequest().body(errorResponse);
-    }
+        errorResponse.getErrors().put("limit", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }*/
 }
