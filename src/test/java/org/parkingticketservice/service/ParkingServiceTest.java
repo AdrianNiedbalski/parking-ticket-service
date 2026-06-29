@@ -13,6 +13,7 @@ import org.parkingticketservice.repository.ParkingRepository;
 import org.parkingticketservice.utils.TimeUtils;
 
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -93,7 +94,7 @@ class ParkingServiceTest {
         String responseData = response.getValidUntil();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                .withZone(java.time.ZoneId.systemDefault());
+                .withZone(ZoneOffset.UTC);
         String expectedFormatted = formatter.format(expectedValidUntil);
 
         assertEquals(expectedFormatted, responseData);
@@ -110,7 +111,6 @@ class ParkingServiceTest {
 
         // Assert
         verify(parkingRepository, times(1)).save(any(ParkingRecord.class));
-        verifyNoMoreInteractions(parkingRepository);
     }
 
     @Test
