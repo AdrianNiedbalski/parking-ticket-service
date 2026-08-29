@@ -127,6 +127,41 @@ jobs:
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v4
 
+  # --- secret scanning, independent, runs in parallel ---
+  gitleaks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # --- build the runtime image and scan it, depends on build-and-test ---
+  docker-image-scan:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Build Docker image
+        run: docker build -t parking-ticket-service:${{ github.sha }} .
+
+      - name: Trivy image scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: image
+          image-ref: parking-ticket-service:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          exit-code: '1'
+
   # --- single required status check, depends on every other job ---
   ci-success:
     runs-on: ubuntu-latest
@@ -136,7 +171,9 @@ jobs:
       - checkstyle
       - dependency-scan
       - codeql
+      - gitleaks
+      - docker-image-scan
 
     steps:
       - name: All checks passed
-        run: echo "build-and-test, verify-artifact, checkstyle, dependency-scan and codeql all succeeded"
+        run: echo "all jobs succeeded"
