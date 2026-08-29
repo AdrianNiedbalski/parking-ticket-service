@@ -1,0 +1,12 @@
+# Vulnerabilities in the Go stdlib bundled inside Eclipse Temurin's own
+# image-build tooling (not part of our app, our dependencies, or the JVM
+# itself). Not fixable from this repo; re-check when temurin publishes a
+# rebuilt base image. See https://github.com/aquasecurity/trivy/discussions/7421
+CVE-2026-33818 exp:2027-02-28
+CVE-2026-39821 exp:2027-02-28
+CVE-2026-46600 exp:2027-02-28
+CVE-2026-56853 exp:2027-02-28
+CVE-2026-56858 exp:2027-02-28
+CVE-2026-56859 exp:2027-02-28
+CVE-2026-56860 exp:2027-02-28
+CVE-2026-56862 exp:2027-02-28

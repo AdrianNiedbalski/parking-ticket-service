@@ -161,6 +161,7 @@ jobs:
           image-ref: parking-ticket-service:${{ github.sha }}
           severity: HIGH,CRITICAL
           exit-code: '1'
+          trivyignores: .trivyignore
 
   # --- single required status check, depends on every other job ---
   ci-success:
