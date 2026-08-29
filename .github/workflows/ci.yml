@@ -20,3 +20,30 @@ jobs:
 
       - name: Build and test
         run: mvn -B clean verify
+
+      - name: Upload jar artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-jar
+          path: target/*.jar
+          retention-days: 1
+
+  verify-artifact:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Download jar artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-jar
+          path: target
+
+      - name: Check jar is a valid executable Spring Boot jar
+        run: |
+          JAR=$(find target -maxdepth 1 -name '*.jar' ! -name '*plain*' | head -n1)
+          echo "Checking $JAR"
+          test -s "$JAR"
+          unzip -p "$JAR" META-INF/MANIFEST.MF | grep -q "Start-Class" \
+            && echo "OK: executable Spring Boot jar" \
+            || (echo "FAIL: missing Start-Class in manifest" && exit 1)
